@@ -18,16 +18,17 @@ require("firebase/firestore");
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
 
-  const dbRef = firebase.database().ref();
-const usersRef = dbRef.child('users');
+ const dbRef = firebase.database().ref();
 
+const usersRef = dbRef.child('users');
 const userListUI = document.getElementById("userList");
+
 usersRef.on("child_added", snap => {
     let user = snap.val();
     let $li = document.createElement("li");
     $li.innerHTML = user.name;
     $li.setAttribute("child-key", snap.key);
-    $li.addEventListener("click", userClicked) userListUI.append($li);
+    $li.addEventListener("click", userClicked), userListUI.append($li);
 });
 
 function userClicked(e) {
@@ -37,6 +38,6 @@ function userClicked(e) {
     userDetailUI.innerHTML = ""
     userRef.on("child_added", snap => {
         var $p = document.createElement("p");
-        $p.innerHTML = snap.key + " - " + snap.val() userDetailUI.append($p);
+        $p.innerHTML = snap.key + " - " + snap.val(), userDetailUI.append($p);
     });
 }
